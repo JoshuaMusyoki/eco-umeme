@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 //import com.google.firebase.auth.FirebaseAuth
+
 import kotlinx.coroutines.launch
 
 
@@ -17,7 +18,6 @@ fun RegisterScreen(){
     val phone = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-//    val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
     
 

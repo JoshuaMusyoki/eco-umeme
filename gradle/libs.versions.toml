@@ -8,6 +8,7 @@ espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.04.01"
+material3 = "1.1.1"
 
 koin = "3.6.0-Beta4"
 coil = "3.0.0-alpha06"
