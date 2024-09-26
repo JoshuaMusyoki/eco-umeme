@@ -10,11 +10,12 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ecoumeme.ecoumeme.domain.MainViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun LoginScreen() {
+fun LoginScreen(mainViewModel: MainViewModel, modifier: Modifier = Modifier) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val coroutineScope = rememberCoroutineScope()
@@ -24,7 +25,7 @@ fun LoginScreen() {
     Scaffold(
         content = {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Center
@@ -51,7 +52,7 @@ fun LoginScreen() {
                     onClick = {
                         coroutineScope.launch {
                             if (email.value.isNotEmpty() && password.value.isNotEmpty()) {
-                                loginUserWithEmail(email.value, password.value)
+                                mainViewModel.loginUser(username = email.value, password = password.value)
                             } else {
 //                                scaffoldState.snackbarHostState.showSnackbar("Please fill out all fields")
                             }
@@ -71,24 +72,5 @@ suspend fun loginUserWithEmail(
     email: String,
     password: String
 ) {
-    try {
-//        firebaseAuth.signInWithEmailAndPassword(email, password)
-//            .addOnCompleteListener { task ->
-//                if (task.isSuccessful) {
-//                    scaffoldState.snackbarHostState.showSnackbar("Login successful")
-//                } else {
-//                    task.exception?.message?.let {
-//                        scaffoldState.snackbarHostState.showSnackbar("Login failed: $it")
-//                    }
-//                }
-//            }
-    } catch (e: Exception) {
-//        scaffoldState.snackbarHostState.showSnackbar("Error: ${e.localizedMessage}")
-    }
-}
 
-@Preview
-@Composable
-fun SignInPreview(){
-    LoginScreen()
 }

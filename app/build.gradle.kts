@@ -59,7 +59,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation(libs.koin.android)
+    implementation("io.insert-koin:koin-android:3.6.0-Beta4")
+    implementation("io.insert-koin:koin-androidx-compose:3.6.0-Beta4")
+    implementation("io.insert-koin:koin-androidx-workmanager:3.6.0-Beta4")
+    implementation("io.insert-koin:koin-androidx-navigation:3.6.0-Beta4")
+    //implementation("io.insert-koin:koin-androidx-viewmodel:3.6.0-Beta4")
+    //api(libs.koin.core)
+    //api(libs.koin.core)
+    //implementation(libs.koin.compose)
+    //implementation(libs.koin.compose.viewmodel)
+    //implementation(libs.koin.androidx.compose)
+    //implementation(libs.koin.androidx.)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.navigation.compose)
@@ -70,4 +80,6 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.realm.core)
+
+    //implementation(project.dependencies.platform("io.insert-koin:koin-bom:$koin_version"))
 }

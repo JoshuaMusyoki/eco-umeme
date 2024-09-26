@@ -10,6 +10,7 @@ import kotlinx.serialization.json.Json
 
 fun createHttpClient(engine: HttpClientEngine): HttpClient {
     return HttpClient(engine){
+        this.
         install(Logging){
             level = LogLevel.ALL
         }

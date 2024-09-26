@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.ecoumeme.ecoumeme.domain.MainViewModel
 //import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.coroutines.launch
@@ -13,18 +14,16 @@ import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RegisterScreen(){
+fun RegisterScreen(mainViewModel: MainViewModel, modifier: Modifier = Modifier){
     val name = remember { mutableStateOf("") }
     val phone = remember { mutableStateOf("") }
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
-    val coroutineScope = rememberCoroutineScope()
-    
 
     Scaffold (
         content = {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(16.dp),
                 verticalArrangement = Arrangement.Center
@@ -67,20 +66,12 @@ fun RegisterScreen(){
 
                 Button(
                     onClick = {
-                        coroutineScope.launch {
-                            if (email.value.isNotEmpty() && password.value.isNotEmpty()) {
-                                registerUserWithEmail(
-//                                    firebaseAuth,
-                                    email.value,
-                                    password.value,
-//                                    scaffoldState
-                                )
-                            } else {
-                                // Show a snackbar message if any field is empty
-
-//                                scaffoldState.snackbarHostState.showSnackbar("Please fill out all fields")
-                            }
-                        }
+                        mainViewModel.createUser(
+                            username = name.value,
+                            phone = phone.value,
+                            email = email.value,
+                            password = password.value
+                        )
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -113,8 +104,3 @@ suspend fun registerUserWithEmail(
 //    }
 }
 
-@Preview
-@Composable
-fun RegisterScreenPreview(){
-    RegisterScreen()
-}
