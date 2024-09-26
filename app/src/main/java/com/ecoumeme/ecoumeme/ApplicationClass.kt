@@ -6,6 +6,6 @@ import com.ecoumeme.ecoumeme.common.di.initKoin
 class ApplicationClass: Application() {
     override fun onCreate() {
         super.onCreate()
-        initKoin()
+        initKoin(this@ApplicationClass)
     }
 }
