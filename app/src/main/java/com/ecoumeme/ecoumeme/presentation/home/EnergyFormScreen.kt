@@ -30,7 +30,8 @@ fun EnergyForm(navController: NavHostController) {
     val inspectionDate = remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Energy Solution Form") }) },
+        topBar = {
+            TopAppBar(title = { Text("Energy Solution Form") })},
         content = {
             Column(modifier = Modifier
                 .fillMaxSize()
@@ -94,8 +95,9 @@ fun EnergyForm(navController: NavHostController) {
                 Button(
                     onClick = {
                         navController.navigate(
-                            "recommendation/${location.value}/${billMonth1.value}/${billMonth2.value}/${billMonth3.value}/" +
-                                    "${hasFridge.value}/${hasWasher.value}/${hasAC.value}/${hasCooker.value}/${inspectionDate.value}"
+                            "success"
+//                            "recommendation/${location.value}/${billMonth1.value}/${billMonth2.value}/${billMonth3.value}/" +
+//                                    "${hasFridge.value}/${hasWasher.value}/${hasAC.value}/${hasCooker.value}/${inspectionDate.value}"
                         )
                     },
                     modifier = Modifier.fillMaxWidth()

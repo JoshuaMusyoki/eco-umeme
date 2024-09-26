@@ -38,10 +38,12 @@ fun RecommendationScreen(
     Scaffold(
         topBar = { TopAppBar(title = { Text("Solar Energy Recommendation") }) },
         content = {
-            Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
 
                 Text("Based on your inputs, here is the recommendation for your solar energy setup:")
 
