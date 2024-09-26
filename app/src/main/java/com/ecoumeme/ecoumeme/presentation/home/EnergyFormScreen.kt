@@ -11,11 +11,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.ecoumeme.ecoumeme.domain.MainViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun EnergyForm(navController: NavHostController) {
+fun EnergyForm(mainViewModel: MainViewModel) {
     val location = remember { mutableStateOf("") }
     val billMonth1 = remember { mutableStateOf("") }
     val billMonth2 = remember { mutableStateOf("") }
@@ -48,7 +49,7 @@ fun EnergyForm(navController: NavHostController) {
                 TextField(
                     value = billMonth1.value,
                     onValueChange = { billMonth1.value = it },
-                    label = { Text("Electricity Bill - Month 1") },
+                    label = { Text("Electricity Bill - Month 1 in Ksh.") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -57,7 +58,7 @@ fun EnergyForm(navController: NavHostController) {
                 TextField(
                     value = billMonth2.value,
                     onValueChange = { billMonth2.value = it },
-                    label = { Text("Electricity Bill - Month 2") },
+                    label = { Text("Electricity Bill - Month 2 in Ksh.") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -66,7 +67,7 @@ fun EnergyForm(navController: NavHostController) {
                 TextField(
                     value = billMonth3.value,
                     onValueChange = { billMonth3.value = it },
-                    label = { Text("Electricity Bill - Month 3") },
+                    label = { Text("Electricity Bill - Month 3 in Ksh.") },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -94,11 +95,27 @@ fun EnergyForm(navController: NavHostController) {
                 // Submit Button with Navigation to Recommendation Screen
                 Button(
                     onClick = {
-                        navController.navigate(
-                            "success"
-//                            "recommendation/${location.value}/${billMonth1.value}/${billMonth2.value}/${billMonth3.value}/" +
-//                                    "${hasFridge.value}/${hasWasher.value}/${hasAC.value}/${hasCooker.value}/${inspectionDate.value}"
+                        mainViewModel.getRecommendation(
+                            location.value,
+                                    billMonth1.value,
+                                    billMonth2.value,
+                                    billMonth3.value,
+                                    hasFridge.value,
+                                    hasWasher.value,
+                                    hasAC.value,
+                                    hasCooker.value,
+                                    requestInspection.value
                         )
+
+                        location.value = ""
+                        billMonth1.value = ""
+                        billMonth2.value = ""
+                        billMonth3.value = ""
+                        hasFridge.value = false
+                        hasWasher.value = false
+                        hasAC.value = false
+                        hasCooker.value = false
+                        requestInspection.value = false
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -107,10 +124,4 @@ fun EnergyForm(navController: NavHostController) {
             }
         }
     )
-}
-
-@Preview
-@Composable
-fun EnergyFormPreview() {
-    EnergyForm(navController = rememberNavController())
 }

@@ -1,4 +1,4 @@
-package com.malakiapps.catfacts.data.common
+package com.ecoumeme.ecoumeme.data.common
 
 sealed interface Result<out D, out E: Error> {
     data class ResultSuccess<out D>(val data: D): Result<D, Nothing>
@@ -16,7 +16,7 @@ fun <T, E: Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
     return map {  }
 }
 
-fun <T>Result<T, Error>.getOrNull(): T?{
+fun <T> Result<T, Error>.getOrNull(): T?{
     return when(this){
         is Result.ResultError -> null
         is Result.ResultSuccess -> data

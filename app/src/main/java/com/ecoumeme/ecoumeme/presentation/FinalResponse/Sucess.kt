@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ecoumeme.ecoumeme.presentation.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -38,9 +39,10 @@ fun SuccessScreen(navController: NavController){
                 Spacer(modifier = Modifier.height(24.dp))
 
                 OutlinedButton(onClick = {
-                    navController.navigate("form") {
-                        popUpTo("form") { inclusive = true }
-                    }
+                    navController.popBackStack()
+                    /*navController.navigate(Routes.ENERGY_SURVEY_FORM.routes) {
+                        popUpTo(Routes.ENERGY_SURVEY_FORM.routes) { inclusive = true }
+                    }*/
                 }) {
                     Text("Go Back to Home")
                 }

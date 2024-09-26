@@ -34,6 +34,8 @@ import com.ecoumeme.ecoumeme.domain.FailedLogin
 import com.ecoumeme.ecoumeme.domain.MainViewModel
 import com.ecoumeme.ecoumeme.domain.NotAttempted
 import com.ecoumeme.ecoumeme.domain.SuccessLogin
+import com.ecoumeme.ecoumeme.presentation.FinalResponse.ErrorScreen
+import com.ecoumeme.ecoumeme.presentation.FinalResponse.SuccessScreen
 import com.ecoumeme.ecoumeme.presentation.Routes
 import com.ecoumeme.ecoumeme.presentation.auth.LoginScreen
 import com.ecoumeme.ecoumeme.presentation.auth.RegisterScreen
@@ -54,6 +56,7 @@ class MainActivity : ComponentActivity() {
                     var signUpScreen by remember { mutableStateOf(true) }
                     val loginState by mainViewModel.loginResponse.collectAsState()
                     val navController = rememberNavController()
+                    val finalResponse by mainViewModel.recommendationResponse.collectAsState()
 
                     LaunchedEffect(loginState) {
                         when (loginState) {
@@ -67,6 +70,16 @@ class MainActivity : ComponentActivity() {
 
                             is SuccessLogin -> {
                                 navController.navigate(Routes.ENERGY_SURVEY_FORM.routes)
+                            }
+                        }
+                    }
+
+                    LaunchedEffect(finalResponse) {
+                        if(finalResponse != null){
+                            if(finalResponse == true){
+                                navController.navigate(Routes.SUCCESS_ROUTE.routes)
+                            } else {
+                                navController.navigate(Routes.FAIL_ROUTE.routes)
                             }
                         }
                     }
@@ -100,7 +113,15 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(Routes.ENERGY_SURVEY_FORM.routes) {
-                            EnergyForm(navController = navController)
+                            EnergyForm(mainViewModel = mainViewModel)
+                        }
+
+                        composable(Routes.FAIL_ROUTE.routes){
+                            ErrorScreen(navController)
+                        }
+
+                        composable(Routes.SUCCESS_ROUTE.routes){
+                            SuccessScreen(navController)
                         }
                     }
                 }
@@ -122,7 +143,7 @@ fun UmemeBottomBar(
 
         Spacer(Modifier.weight(1f))
         Box(
-            modifier = Modifier.weight(1f).clickable {
+            modifier = Modifier.padding(top = 8.dp).weight(1f).clickable {
                 onFragmentChange(true)
             }
         ){
@@ -137,7 +158,7 @@ fun UmemeBottomBar(
         Spacer(Modifier.weight(1f))
 
         Box(
-            modifier = Modifier.weight(1f).clickable {
+            modifier = Modifier.padding(top = 8.dp).weight(1f).clickable {
                 onFragmentChange(false)
             }
         ){
